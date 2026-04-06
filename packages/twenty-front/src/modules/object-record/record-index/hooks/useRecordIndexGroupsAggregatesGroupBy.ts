@@ -15,8 +15,10 @@ import { useAtomComponentStateValue } from '@/ui/utilities/state/jotai/hooks/use
 import { useQuery } from '@apollo/client/react';
 import { useMemo } from 'react';
 import { type Nullable } from 'twenty-shared/types';
+import { computeRecordGqlOperationFilterWithEnforcedOwner } from '@/object-record/record-filter/utils/computeRecordGqlOperationFilterWithEnforcedOwner';
 import {
-  computeRecordGqlOperationFilter,
+  // [OWNER-FILTER] Original import — uncomment to revert:
+  // computeRecordGqlOperationFilter,
   isDefined,
   turnAnyFieldFilterIntoRecordGqlFilter,
 } from 'twenty-shared/utils';
@@ -46,7 +48,14 @@ export const useRecordIndexGroupsAggregatesGroupBy = ({
 
   const { filterValueDependencies } = useFilterValueDependencies();
 
-  const requestFilters = computeRecordGqlOperationFilter({
+  // [OWNER-FILTER] Original — uncomment to revert:
+  // const requestFilters = computeRecordGqlOperationFilter({
+  //   filterValueDependencies,
+  //   recordFilters: currentRecordFilters,
+  //   recordFilterGroups: currentRecordFilterGroups,
+  //   fields: objectMetadataItem.fields,
+  // });
+  const requestFilters = computeRecordGqlOperationFilterWithEnforcedOwner({
     filterValueDependencies,
     recordFilters: currentRecordFilters,
     recordFilterGroups: currentRecordFilterGroups,

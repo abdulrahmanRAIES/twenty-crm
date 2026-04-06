@@ -29,6 +29,10 @@ export const useRemoveRecordFilter = (instanceId?: string) => {
         return;
       }
 
+      if (isDefined(filterToRemove.rlsDynamicValue)) {
+        return;
+      }
+
       store.set(
         currentRecordFilters,
         (previousRecordFilters: RecordFilter[]) => {

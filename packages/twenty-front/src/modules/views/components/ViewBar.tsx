@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
-import { useRecordIndexContextOrThrow } from '@/object-record/record-index/contexts/RecordIndexContext';
 import { ObjectSortDropdownButton } from '@/object-record/object-sort-dropdown/components/ObjectSortDropdownButton';
+import { useRecordIndexContextOrThrow } from '@/object-record/record-index/contexts/RecordIndexContext';
 import { TopBar } from '@/ui/layout/top-bar/components/TopBar';
 import { QueryParamsFiltersEffect } from '@/views/components/QueryParamsFiltersEffect';
 import { QueryParamsSortsEffect } from '@/views/components/QueryParamsSortsEffect';
@@ -21,6 +21,7 @@ import { ViewBarRecordSortEffect } from '@/views/components/ViewBarRecordSortEff
 import { ViewBarFilterDropdownIds } from '@/views/constants/ViewBarFilterDropdownIds';
 import { UpdateViewButtonGroup } from './UpdateViewButtonGroup';
 import { ViewBarDetails } from './ViewBarDetails';
+import { ViewBarOwnerFilterEffect } from './ViewBarOwnerFilterEffect';
 
 type ViewBarProps = {
   viewBarId: string;
@@ -36,6 +37,15 @@ export const ViewBar = ({
   isReadOnly = false,
 }: ViewBarProps) => {
   const { objectNamePlural } = useRecordIndexContextOrThrow();
+
+  // Debug: verify ViewBar is rendering and for which object
+  // eslint-disable-next-line no-console
+  console.log(
+    '[OwnerEnforcement][ViewBar] render for objectNamePlural:',
+    objectNamePlural,
+    'viewBarId:',
+    viewBarId,
+  );
 
   if (!objectNamePlural) {
     return;
@@ -55,6 +65,7 @@ export const ViewBar = ({
       <ViewBarAnyFieldFilterEffect />
       <ViewBarRecordFieldEffect />
       <ViewBarRecordFilterEffect />
+      <ViewBarOwnerFilterEffect />
       <ViewBarRecordSortEffect />
       <QueryParamsFiltersEffect />
       <QueryParamsSortsEffect />

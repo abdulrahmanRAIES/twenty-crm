@@ -3,13 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { isNonEmptyString } from '@sniptt/guards';
 import { type AiSdkPackage } from 'twenty-shared/ai';
 
+import { NodeEnvironment } from 'src/engine/core-modules/twenty-config/interfaces/node-environment.interface';
+import { SupportDriver } from 'src/engine/core-modules/twenty-config/interfaces/support.interface';
 import {
   AI_SDK_ANTHROPIC,
   AI_SDK_BEDROCK,
   AI_SDK_OPENAI,
 } from 'src/engine/metadata-modules/ai/ai-models/constants/ai-sdk-package.const';
-import { NodeEnvironment } from 'src/engine/core-modules/twenty-config/interfaces/node-environment.interface';
-import { SupportDriver } from 'src/engine/core-modules/twenty-config/interfaces/support.interface';
 
 import {
   type ClientAIModelConfig,
@@ -20,10 +20,10 @@ import { DomainServerConfigService } from 'src/engine/core-modules/domain/domain
 import { PUBLIC_FEATURE_FLAGS } from 'src/engine/core-modules/feature-flag/constants/public-feature-flag.const';
 import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 import { convertDollarsToBillingCredits } from 'src/engine/metadata-modules/ai/ai-billing/utils/convert-dollars-to-billing-credits.util';
-import { DEFAULT_FAST_MODEL } from 'src/engine/metadata-modules/ai/ai-models/types/default-fast-model.const';
-import { DEFAULT_SMART_MODEL } from 'src/engine/metadata-modules/ai/ai-models/types/default-smart-model.const';
 import { MODEL_FAMILY_LABELS } from 'src/engine/metadata-modules/ai/ai-models/constants/model-family-labels.const';
 import { AiModelRegistryService } from 'src/engine/metadata-modules/ai/ai-models/services/ai-model-registry.service';
+import { DEFAULT_FAST_MODEL } from 'src/engine/metadata-modules/ai/ai-models/types/default-fast-model.const';
+import { DEFAULT_SMART_MODEL } from 'src/engine/metadata-modules/ai/ai-models/types/default-smart-model.const';
 
 @Injectable()
 export class ClientConfigService {

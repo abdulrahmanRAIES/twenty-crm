@@ -8,12 +8,14 @@ type EditableRelationFilterChipProps = {
   recordFilter: RecordFilter;
   onRemove: () => void;
   onClick?: () => void;
+  showRemoveButton?: boolean;
 };
 
 export const EditableRelationFilterChip = ({
   recordFilter,
   onRemove,
   onClick,
+  showRemoveButton,
 }: EditableRelationFilterChipProps) => {
   const { getIcon } = useIcons();
 
@@ -37,6 +39,7 @@ export const EditableRelationFilterChip = ({
       onRemove={onRemove}
       onClick={onClick}
       type="filter"
+      showRemoveButton={showRemoveButton}
     />
   );
 };

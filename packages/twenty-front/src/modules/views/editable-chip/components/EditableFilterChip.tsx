@@ -14,12 +14,14 @@ type EditableFilterChipProps = {
   recordFilter: RecordFilter;
   onRemove: () => void;
   onClick?: () => void;
+  showRemoveButton?: boolean;
 };
 
 export const EditableFilterChip = ({
   recordFilter,
   onRemove,
   onClick,
+  showRemoveButton,
 }: EditableFilterChipProps) => {
   const { getIcon } = useIcons();
 
@@ -63,6 +65,7 @@ export const EditableFilterChip = ({
       onRemove={onRemove}
       onClick={onClick}
       type="filter"
+      showRemoveButton={showRemoveButton}
     />
   );
 };

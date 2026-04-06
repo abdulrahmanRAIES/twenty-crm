@@ -1,10 +1,12 @@
 import { styled } from '@linaria/react';
 import { type ReactNode, useMemo } from 'react';
 
+import { currentUserState } from '@/auth/states/currentUserState';
 import { useObjectNameSingularFromPlural } from '@/object-metadata/hooks/useObjectNameSingularFromPlural';
 import { ObjectFilterDropdownComponentInstanceContext } from '@/object-record/object-filter-dropdown/states/contexts/ObjectFilterDropdownComponentInstanceContext';
 import { useHandleToggleTrashColumnFilter } from '@/object-record/record-index/hooks/useHandleToggleTrashColumnFilter';
 import { useAtomComponentStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomComponentStateValue';
+import { useAtomStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomStateValue';
 import { AdvancedFilterDropdownButton } from '@/views/advanced-filter-chip/components/AdvancedFilterDropdownButton';
 import { ViewBarDetailsAddFilterButton } from '@/views/components/ViewBarDetailsAddFilterButton';
 import { EditableSortChip } from '@/views/editable-chip/components/EditableSortChip';
@@ -109,6 +111,9 @@ export const ViewBarDetails = ({
     isViewBarExpandedComponentState,
   );
 
+  const currentUser = useAtomStateValue(currentUserState);
+  const isAdmin = currentUser?.canAccessFullAdminPanel === true;
+
   const { hasFiltersQueryParams } = useHasFiltersInQueryParams();
 
   const currentRecordFilterGroups = useAtomComponentStateValue(
@@ -194,6 +199,7 @@ export const ViewBarDetails = ({
   );
 
   const canResetView =
+    isAdmin &&
     (viewFiltersAreDifferentFromRecordFilters ||
       viewSortsAreDifferentFromRecordSorts ||
       viewFilterGroupsAreDifferentFromRecordFilterGroups ||

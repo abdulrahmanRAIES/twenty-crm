@@ -12,9 +12,11 @@ import { recordIndexGroupFieldMetadataItemComponentState } from '@/object-record
 import { currentRecordSortsComponentState } from '@/object-record/record-sort/states/currentRecordSortsComponentState';
 import { useAtomComponentSelectorValue } from '@/ui/utilities/state/jotai/hooks/useAtomComponentSelectorValue';
 import { useAtomComponentStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomComponentStateValue';
+import { computeRecordGqlOperationFilterWithEnforcedOwner } from '@/object-record/record-filter/utils/computeRecordGqlOperationFilterWithEnforcedOwner';
 import {
   combineFilters,
-  computeRecordGqlOperationFilter,
+  // [OWNER-FILTER] Original import — uncomment to revert:
+  // computeRecordGqlOperationFilter,
   turnAnyFieldFilterIntoRecordGqlFilter,
 } from 'twenty-shared/utils';
 
@@ -36,7 +38,14 @@ export const useRecordIndexGroupCommonQueryVariables = () => {
 
   const { filterValueDependencies } = useFilterValueDependencies();
 
-  const requestFilters = computeRecordGqlOperationFilter({
+  // [OWNER-FILTER] Original — uncomment to revert:
+  // const requestFilters = computeRecordGqlOperationFilter({
+  //   filterValueDependencies,
+  //   recordFilters: currentRecordFilters,
+  //   recordFilterGroups: currentRecordFilterGroups,
+  //   fields: objectMetadataItem.fields,
+  // });
+  const requestFilters = computeRecordGqlOperationFilterWithEnforcedOwner({
     filterValueDependencies,
     recordFilters: currentRecordFilters,
     recordFilterGroups: currentRecordFilterGroups,

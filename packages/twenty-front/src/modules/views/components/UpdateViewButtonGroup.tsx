@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 
+import { currentUserState } from '@/auth/states/currentUserState';
 import { contextStoreCurrentViewIdComponentState } from '@/context-store/states/contextStoreCurrentViewIdComponentState';
 import { Dropdown } from '@/ui/layout/dropdown/components/Dropdown';
 import { DropdownContent } from '@/ui/layout/dropdown/components/DropdownContent';
@@ -7,6 +8,7 @@ import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/Drop
 import { useCloseDropdown } from '@/ui/layout/dropdown/hooks/useCloseDropdown';
 import { useOpenDropdown } from '@/ui/layout/dropdown/hooks/useOpenDropdown';
 import { useAtomComponentStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomComponentStateValue';
+import { useAtomStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomStateValue';
 import { useSetAtomComponentState } from '@/ui/utilities/state/jotai/hooks/useSetAtomComponentState';
 import { UPDATE_VIEW_BUTTON_DROPDOWN_ID } from '@/views/constants/UpdateViewButtonDropdownId';
 import { useHasFiltersInQueryParams } from '@/views/hooks/internal/useHasFiltersInQueryParams';
@@ -34,6 +36,9 @@ const StyledContainer = styled.div`
 `;
 
 export const UpdateViewButtonGroup = () => {
+  const currentUser = useAtomStateValue(currentUserState);
+  const isAdmin = currentUser?.canAccessFullAdminPanel === true;
+
   const { saveCurrentViewFilterAndSorts } = useSaveCurrentViewFiltersAndSorts();
   const { canPersistChanges } = useCanPersistViewChanges();
 
@@ -93,6 +98,7 @@ export const UpdateViewButtonGroup = () => {
     useIsViewAnyFieldFilterDifferentFromCurrentAnyFieldFilter();
 
   const canShowButton =
+    isAdmin &&
     (viewFiltersAreDifferentFromRecordFilters ||
       viewSortsAreDifferentFromRecordSorts ||
       viewFilterGroupsAreDifferentFromRecordFilterGroups ||
