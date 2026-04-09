@@ -5,6 +5,7 @@ services:
     build:
       context: ../../
       dockerfile: packages/twenty-docker/twenty/Dockerfile
+      target: twenty
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
     ports:
@@ -60,8 +61,9 @@ services:
 
   worker:
     build:
-      context: ../../
-      dockerfile: packages/twenty-docker/twenty/Dockerfile
+        context: ../../
+        dockerfile: packages/twenty-docker/twenty/Dockerfile
+        target: twenty
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
     command: ["yarn", "worker:prod"]
